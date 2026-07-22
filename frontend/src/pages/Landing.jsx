@@ -211,7 +211,7 @@ export default function Landing({ navigate }) {
             <div style={{ display: 'flex', alignItems: 'center', paddingLeft: 12, fontSize: 16, color: '#9CA3AF' }}>🔍</div>
             <input
               type="text"
-              placeholder="Search courses (e.g. , UI/UX, Webflow)..."
+placeholder="Search courses (e.g. UI/UX, Webflow)..."
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value)
@@ -307,10 +307,30 @@ export default function Landing({ navigate }) {
                 FEATURED COURSE • 24 LESSONS
               </div>
               <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: 18, lineHeight: 1.3, marginBottom: 8 }}>
-                UI/UX Advanced Masterclass
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 12, color: '#BFDBFE' }}>
-                <span>🌐 Google & Certified</span>
+<div
+  style={{
+    fontFamily: 'Poppins, sans-serif',
+    fontWeight: 700,
+    fontSize: 18,
+    lineHeight: 1.3,
+    marginBottom: 8,
+  }}
+>
+  UI/UX Advanced Masterclass
+</div>
+
+<div
+  style={{
+    display: 'flex',
+    alignItems: 'center',
+    gap: 12,
+    fontSize: 12,
+    color: '#BFDBFE',
+  }}
+>
+  <span>🌐 Google & Certified</span>
+  <span>⏱️ 14 Hours</span>
+</div>
                 <span>⏱️ 14 Hours</span>
               </div>
 

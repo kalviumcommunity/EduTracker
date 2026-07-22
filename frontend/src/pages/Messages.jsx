@@ -11,7 +11,7 @@ const CHATS = [
 export default function Messages({ navigate, currentPage }) {
   const [selectedChat, setSelectedChat] = useState(CHATS[0])
   const [messages, setMessages] = useState([
-    { sender: 'them', text: 'Hi John! How is the course coming along?', time: '10:30 AM' },
+{ sender: 'them', text: 'Hi John! How is the course coming along?', time: '10:30 AM' },
     { sender: 'me', text: 'Hey Sarah! Moving through Module 1. The user research lesson was super helpful.', time: '10:35 AM' },
     { sender: 'them', text: 'Great progress on your wireframe assignment! Keep up the good work.', time: '10:42 AM' },
   ])

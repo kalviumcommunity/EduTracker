@@ -1,1 +1,1 @@
-This folder stores the original raw datasets.
+This directory contains raw, unmodified data files.

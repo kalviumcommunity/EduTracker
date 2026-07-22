@@ -794,7 +794,10 @@ Illustration
 
 Dashboard Graphics
 
-I will replace every placeholder later in .
+I will replace every placeholder later in Figma.
+
+
+
 
 Responsive Layout
 
@@ -934,4 +937,4 @@ Create clickable navigation between all pages.
 
 Include hover states, active states, loading states, success states, error states, empty states, and responsive variants.
 
-The final result should look like a premium production-ready LMS with the same visual quality, spacing, card layouts, sidebar navigation, dashboard organization, course pages, learning experience, and certificate screens shown in the provided reference images, while using reusable Auto Layout components and image placeholders that can easily be replaced later in .
+The final result should look like a premium production-ready LMS with the same visual quality, spacing, card layouts, sidebar navigation, dashboard organization, course pages, learning experience, and certificate screens shown in the provided reference images, while using reusable Auto Layout components and image placeholders that can easily be replaced later in Figma.

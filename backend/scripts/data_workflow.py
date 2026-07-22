@@ -1,10 +1,13 @@
-"""Modular data workflow for ingesting, processing, and exporting sample data."""
+"""
+Modular data workflow for ingesting, processing, and exporting sample data.
+
+Provides a reusable pipeline for loading, cleaning, transforming, and saving datasets.
+"""
 
 import sys
 from pathlib import Path
 
 import pandas as pd
-
 
 try:
     sys.stdout.reconfigure(encoding="utf-8")

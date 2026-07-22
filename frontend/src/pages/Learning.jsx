@@ -50,7 +50,7 @@ const lessonContent = {
           <div>
             <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 600, fontSize: 13, color: '#111827' }}>Instructor <span style={{ background: '#DBEAFE', color: '#2563EB', borderRadius: 4, padding: '1px 6px', fontSize: 10 }}>Instructor</span></div>
             <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 13, color: '#374151', marginTop: 4, lineHeight: 1.6 }}>
-              Your graphic design background is a huge asset! Focus on learning user research methods and prototyping tools like .
+Your graphic design background is a huge asset! Focus on learning user research methods and prototyping tools.
             </div>
           </div>
         </div>
@@ -131,7 +131,11 @@ export default function Learning({ navigate, currentPage }) {
           navigate={navigate}
           currentPage={currentPage}
           breadcrumb={[
-            { label: 'UI/UX', page: 'course-detail' },
+breadcrumb={[
+  { label: 'UI/UX', page: 'course-detail' },
+  { label: 'Module 1', page: 'course-detail' },
+  { label: 'Introduction to UI/UX Design' },
+]}
             { label: 'Module 1', page: 'course-detail' },
             { label: 'Introduction to UI/UX Design' },
           ]}

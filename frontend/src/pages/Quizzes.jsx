@@ -6,7 +6,7 @@ const QUIZZES = [
   {
     id: 1,
     title: 'UI/UX Fundamentals Quiz',
-    course: 'UI/UX Design',
+course: 'UI/UX Design',
     duration: '10 Mins',
     totalQuestions: 3,
     questions: [

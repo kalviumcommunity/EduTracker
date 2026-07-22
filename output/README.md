@@ -1,1 +1,1 @@
-This folder stores generated reports and charts.
+This directory contains generated outputs such as figures and reports.
