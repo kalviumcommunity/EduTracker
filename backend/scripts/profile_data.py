@@ -118,6 +118,28 @@ def identify_quality_issues(df, null_threshold=30, duplicate_threshold=5):
     return issues
 
 
+def calculate_quality_score(df, issues):
+    """
+    Calculate an overall Data Quality Score (0 to 100%).
+    Deducts points based on null count ratio and severity of issues.
+    """
+    total_cells = df.size if df.size > 0 else 1
+    null_cells = int(df.isnull().sum().sum())
+    completeness = max(0, 100 - (null_cells / total_cells) * 100)
+
+    deductions = 0
+    for issue in issues:
+        if issue['severity'] == 'HIGH':
+            deductions += 15
+        elif issue['severity'] == 'MEDIUM':
+            deductions += 10
+        else:
+            deductions += 5
+
+    score = max(0, min(100, round(completeness - deductions, 2)))
+    return score
+
+
 def generate_profile_report(df, filepath):
     """
     Generate complete data quality report and save to JSON.
@@ -126,15 +148,18 @@ def generate_profile_report(df, filepath):
     """
     num_df = profile_numerical_columns(df)
     num_stats_dict = num_df.to_dict() if not num_df.empty else {}
+    quality_issues = identify_quality_issues(df)
+    quality_score = calculate_quality_score(df, quality_issues)
 
     report = {
         'dataset': str(filepath),
         'record_count': len(df),
         'column_count': len(df.columns),
+        'quality_score': quality_score,
         'nulls_and_duplicates': profile_nulls_and_duplicates(df),
         'numerical_stats': num_stats_dict,
         'categorical_stats': profile_categorical_columns(df),
-        'quality_issues': identify_quality_issues(df)
+        'quality_issues': quality_issues
     }
     
     # Save report
@@ -157,6 +182,7 @@ def generate_profile_report(df, filepath):
     print(f"{'='*60}")
     print(f"Records: {report['record_count']}")
     print(f"Columns: {report['column_count']}")
+    print(f"Overall Quality Score: {report['quality_score']}%")
     print(f"\nQuality Issues Found: {len(report['quality_issues'])}")
     for issue in report['quality_issues']:
         print(f"  [{issue['severity']}] {issue['type']} in {issue['column']}")

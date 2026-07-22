@@ -2,6 +2,7 @@
   "dataset": "C:\\Users\\megha\\Downloads\\Edutrack\\backend\\data\\raw\\quality_test.csv",
   "record_count": 5,
   "column_count": 5,
+  "quality_score": 63.0,
   "nulls_and_duplicates": {
     "null_counts": {
       "customer_id": 0,
