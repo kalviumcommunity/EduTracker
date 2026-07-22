@@ -1,4 +1,4 @@
-# figma-make-app
+
 
 React + Vite + Tailwind CSS project running inside Figma Make.
 
@@ -20,4 +20,4 @@ A Vite development server is **always running** on `$PORT` (default 8443). You d
 
 ## Styling
 
-This project uses **Tailwind CSS v4** for styling. Use Tailwind utility classes directly in JSX. Tailwind is loaded via the Vite plugin — no PostCSS config needed.
+This project uses **Tailwind CSS v4** for styling. Use Tailwind utility classes directly in JSX. Tailwind is loaded via the Vite plugin—no PostCSS config needed.

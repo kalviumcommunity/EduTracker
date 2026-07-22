@@ -3,7 +3,7 @@ import TopNav from '../components/TopNav'
 
 const BADGES = [
   { icon: '🔥', title: '7-Day Streak', desc: 'Logged in and studied 7 days in a row', status: 'Unlocked', date: 'Jul 20' },
-  { icon: '🎨', title: 'UI Master', desc: 'Completed Figma Advanced Course', status: 'Unlocked', date: 'Jul 15' },
+{ icon: '🎨', title: 'UI Master', desc: 'Completed Advanced Course', status: 'Unlocked', date: 'Jul 15' },
   { icon: '⚡', title: 'Fast Learner', desc: 'Completed 5 lessons in a single day', status: 'Unlocked', date: 'Jul 10' },
   { icon: '🏆', title: 'Top 5% Student', desc: 'Achieved 95%+ in course quizzes', status: 'Unlocked', date: 'Jul 05' },
   { icon: '🤝', title: 'Community Helper', desc: 'Answered 10 peer Q&A questions', status: 'Locked', date: 'In Progress' },

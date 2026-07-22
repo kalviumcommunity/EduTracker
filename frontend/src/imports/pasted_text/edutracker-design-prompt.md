@@ -796,6 +796,9 @@ Dashboard Graphics
 
 I will replace every placeholder later in Figma.
 
+
+
+
 Responsive Layout
 
 Desktop
@@ -818,7 +821,7 @@ Auto Layout everywhere.
 
 Use proper constraints.
 
-Figma Structure
+Structure
 
 Pages
 

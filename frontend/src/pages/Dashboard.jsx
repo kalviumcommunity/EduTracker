@@ -36,13 +36,23 @@ const performanceBars = [70, 85, 60, 95, 80, 65, 88, 72]
 const myCourses = [
   { title: 'Google UI/UX Design Level Up', progress: 64, total: 20, color: '#2563EB', icon: '🎨' },
   { title: 'Amazon Brand Identity and Visual', progress: 2, total: 34, color: '#F59E0B', icon: '📦' },
-  { title: 'Figma UI/UX Design Advanced', progress: 10, total: 14, color: '#8B5CF6', icon: '✏️' },
+{
+  title: 'UI/UX Design Advanced',
+  progress: 10,
+  total: 14,
+  color: '#8B5CF6',
+  icon: '✏️',
+},
 ]
 
 const upcomingClasses = [
   { title: 'UI/UX Design Session', time: '2:00 PM Today', dot: '#2563EB' },
   { title: 'Brand Strategy Workshop', time: '10:00 AM Tomorrow', dot: '#8B5CF6' },
-  { title: 'Figma Advanced Tips', time: 'Wed, Jul 23', dot: '#22C55E' },
+{
+  title: 'Advanced Tips',
+  time: 'Wed, Jul 23',
+  dot: '#22C55E',
+},
 ]
 
 export default function Dashboard({ navigate, currentPage }) {

@@ -12,7 +12,7 @@ export default function Assignments({ navigate, currentPage }) {
 
   // New assignment form state
   const [title, setTitle] = useState('')
-  const [course, setCourse] = useState('Figma UI/UX Design')
+const [course, setCourse] = useState('UI/UX Design')
   const [content, setContent] = useState('')
 
   const mySubmissions = submissions.filter((s) => s.studentName === user?.name || true)
@@ -193,7 +193,7 @@ export default function Assignments({ navigate, currentPage }) {
                     <label style={{ display: 'block', fontSize: 12.5, fontWeight: 600, color: '#374151', marginBottom: 6 }}>Assignment Title</label>
                     <input
                       type="text"
-                      placeholder="e.g. Figma E-Commerce Prototype"
+placeholder="e.g. E-Commerce Prototype"
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       required
@@ -208,7 +208,7 @@ export default function Assignments({ navigate, currentPage }) {
                       onChange={(e) => setCourse(e.target.value)}
                       style={{ width: '100%', padding: '10px 14px', border: '1.5px solid #E5E7EB', borderRadius: 10, fontSize: 13.5, outline: 'none' }}
                     >
-                      <option>Figma UI/UX Design</option>
+<option>UI/UX Design</option>
                       <option>Brand Identity & Visual Experience</option>
                       <option>Low Code Website Development</option>
                     </select>
@@ -217,7 +217,7 @@ export default function Assignments({ navigate, currentPage }) {
                   <div>
                     <label style={{ display: 'block', fontSize: 12.5, fontWeight: 600, color: '#374151', marginBottom: 6 }}>Submission Notes / Links</label>
                     <textarea
-                      placeholder="Paste your Figma file link or project notes..."
+placeholder="Paste your file link or project notes..."
                       value={content}
                       onChange={(e) => setContent(e.target.value)}
                       rows={4}
