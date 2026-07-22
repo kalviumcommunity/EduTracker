@@ -4,7 +4,7 @@ import TopNav from '../components/TopNav'
 
 const EVENTS = [
   { day: 22, title: 'UI/UX Design Live Workshop', time: '10:00 AM', type: 'Lecture', color: '#2563EB', bg: '#DBEAFE' },
-  { day: 23, title: 'Figma Components Deadline', time: '11:59 PM', type: 'Assignment', color: '#EA580C', bg: '#FFEDD5' },
+  { day: 23, title: 'Components Deadline', time: '11:59 PM', type: 'Assignment', color: '#EA580C', bg: '#FFEDD5' },
   { day: 25, title: 'Brand Identity Quiz', time: '2:00 PM', type: 'Quiz', color: '#7C3AED', bg: '#EDE9FE' },
   { day: 28, title: '3D Animation Q&A Session', time: '4:00 PM', type: 'Lecture', color: '#059669', bg: '#D1FAE5' },
 ]

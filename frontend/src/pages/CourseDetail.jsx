@@ -94,7 +94,7 @@ export default function CourseDetail({ navigate, currentPage }) {
           currentPage={currentPage}
           breadcrumb={[
             { label: 'My Courses', page: 'courses' },
-            { label: 'Figma Course' },
+            { label: 'Course' },
           ]}
         />
 
@@ -102,7 +102,7 @@ export default function CourseDetail({ navigate, currentPage }) {
           {/* Main content */}
           <div style={{ flex: 1, minWidth: 0 }}>
             <h1 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: 22, color: '#111827', margin: '0 0 20px' }}>
-              Figma Course
+              Course
             </h1>
 
             {/* Video Player Placeholder */}
@@ -124,7 +124,7 @@ export default function CourseDetail({ navigate, currentPage }) {
             >
               <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 12 }}>
                 <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: 22, color: '#fff', textAlign: 'center', padding: '0 40px' }}>
-                  Figma UI/UX Design Advanced Master Class
+                  UI/UX Design Advanced Master Class
                 </div>
                 <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 14, color: '#BFDBFE' }}>Bridging Ideas With Design.</div>
                 <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 12, color: '#93C5FD' }}>400+ students</div>

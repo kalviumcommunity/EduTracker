@@ -47,8 +47,8 @@ const INITIAL_COURSES = [
   },
   {
     id: 'c4',
-    title: 'Figma UI/UX Design Advanced Masterclass',
-    instructor: 'Figma',
+    title: 'UI/UX Design Advanced Masterclass',
+    instructor: '',
     instructorIcon: '✏️',
     students: 600,
     lessons: 18,
@@ -98,7 +98,7 @@ const INITIAL_USERS = [
 ]
 
 const INITIAL_SUBMISSIONS = [
-  { id: 'sub1', studentName: 'John Doe', assignmentTitle: 'Figma E-Commerce Wireframe', course: 'Figma UI/UX Design', submittedAt: 'Jul 20, 2026', status: 'Graded', score: '95/100', feedback: 'Excellent layout hierarchy!' },
+  { id: 'sub1', studentName: 'John Doe', assignmentTitle: 'E-Commerce Wireframe', course: 'UI/UX Design', submittedAt: 'Jul 20, 2026', status: 'Graded', score: '95/100', feedback: 'Excellent layout hierarchy!' },
   { id: 'sub2', studentName: 'Priya Sharma', assignmentTitle: 'Brand Strategy Deck', course: 'Brand Identity', submittedAt: 'Jul 21, 2026', status: 'Pending Review', score: '-', feedback: '' },
   { id: 'sub3', studentName: 'James Okafor', assignmentTitle: 'Responsive Component Library', course: 'Low Code Web', submittedAt: 'Jul 21, 2026', status: 'Pending Review', score: '-', feedback: '' },
 ]
