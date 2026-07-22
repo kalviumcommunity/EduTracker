@@ -1,41 +1,23 @@
-<<<<<<< HEAD
+# Environments
 venv/
 .venv/
-
+env/
 .env
 
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
 
+# Jupyter Notebook
 .ipynb_checkpoints/
 
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
-=======
-# Node dependencies
-node_modules/
-.pnpm-store/
-
-# Production build outputs
-dist/
-build/
-
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-pnpm-debug.log*
-
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# OS & Editor files
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
->>>>>>> 1ef8b02 (feat: complete Edutrack full-stack project with frontend and backend)

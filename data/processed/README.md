@@ -1,1 +1,1 @@
-This folder stores cleaned and transformed datasets.
+This directory contains cleaned and processed data files.

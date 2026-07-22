@@ -1,1 +1,1 @@
-This folder contains Jupyter notebooks for analysis.
+This directory contains Jupyter notebooks for exploration and analysis.

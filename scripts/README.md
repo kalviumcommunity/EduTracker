@@ -1,1 +1,1 @@
-This folder contains reusable Python scripts.
+This directory contains Python scripts for automation and processing.
