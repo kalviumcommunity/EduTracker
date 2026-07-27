@@ -1,0 +1,9 @@
+validation_rule,failed_records,failure_percentage,status
+valid_age,2,0.39,VIOLATION DETECTED
+valid_price,2,0.39,VIOLATION DETECTED
+valid_date,4,0.78,VIOLATION DETECTED
+valid_customer_id,2,0.39,VIOLATION DETECTED
+valid_email,1,0.19,VIOLATION DETECTED
+valid_email_format,3,0.58,VIOLATION DETECTED
+valid_phone,3,0.58,VIOLATION DETECTED
+valid_date_order,2,0.39,VIOLATION DETECTED
