@@ -1,0 +1,11 @@
+{
+  "trend_direction": "DOWN",
+  "trend_magnitude_30d_pct": -1.9,
+  "latest_mom_growth_pct": -2.16,
+  "daily_volatility_std": 3941.6,
+  "total_cumulative_revenue": 9783681.56,
+  "highest_revenue_month": "October 2025",
+  "highest_month_revenue": 564358.64,
+  "business_implication": "Declining momentum - investigate customer churn and marketing efficiency",
+  "recommended_action": "With rolling velocity declining by 1.9% over the last 30 days, investigate conversion drop-offs and prioritize customer retention over aggressive expansion."
+}
