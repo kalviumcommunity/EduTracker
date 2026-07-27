@@ -1,0 +1,23 @@
+[
+  {
+    "operation": "Scalar Multiplication (* 1.1)",
+    "rows": 150000,
+    "loop_time_sec": 0.015922,
+    "numpy_time_sec": 0.000555,
+    "speedup_factor": 28.7
+  },
+  {
+    "operation": "Min-Max Normalization",
+    "rows": 150000,
+    "loop_time_sec": 0.0319,
+    "numpy_time_sec": 0.00124,
+    "speedup_factor": 25.7
+  },
+  {
+    "operation": "Z-Score Standardization",
+    "rows": 150000,
+    "loop_time_sec": 0.032756,
+    "numpy_time_sec": 0.002382,
+    "speedup_factor": 13.8
+  }
+]
