@@ -1,0 +1,16 @@
+customer_id,age,birth_date,price,email,phone,start_date,end_date,valid_age,valid_price,valid_date,valid_customer_id,valid_email,valid_email_format,valid_phone,valid_date_order,passes_all_checks
+CUST-20001,25,2050-05-15,99.99,futurist@example.com,9876543210,2025-01-01,2025-02-01,True,True,False,True,True,True,True,True,False
+CUST-20002,30,2065-11-20,149.5,time_travel@test.org,8765432109,2025-02-01,2025-03-01,True,True,False,True,True,True,True,True,False
+CUST-20003,-5,2030-01-01,50.0,negative_age@test.com,7654321098,2025-01-15,2025-02-15,False,True,False,True,True,True,True,True,False
+CUST-20004,185,1840-06-10,75.0,vampire@old.org,6543210987,2025-03-01,2025-04-01,False,True,False,True,True,True,True,True,False
+CUST-20005,40,1985-04-12,-49.99,refund_bug@store.com,9123456780,2025-01-01,2025-05-01,True,False,True,True,True,True,True,True,False
+CUST-20006,55,1970-08-22,-150.0,glitch@shop.net,8123456789,2025-02-01,2025-06-01,True,False,True,True,True,True,True,True,False
+,29,1996-03-14,120.0,anonymous1@test.com,9012345678,2025-01-10,2025-03-10,True,True,True,False,True,True,True,True,False
+,34,1991-07-19,210.0,anonymous2@test.com,8012345678,2025-02-15,2025-04-15,True,True,True,False,True,True,True,True,False
+CUST-20009,42,1983-09-09,88.5,,7012345678,2025-01-01,2025-02-01,True,True,True,True,False,False,True,True,False
+CUST-20010,50,1975-12-12,300.0,no_phone@test.com,,2025-03-01,2025-05-01,True,True,True,True,True,True,False,True,False
+CUST-20011,22,2003-02-14,45.0,invalid_email_domain.com,9876543210,2025-01-01,2025-02-01,True,True,True,True,True,False,True,True,False
+CUST-20012,27,1998-11-11,65.0,bad_user@test,12345,2025-02-01,2025-03-01,True,True,True,True,True,False,False,True,False
+CUST-20013,31,1994-05-05,110.0,valid@test.com,9876543210987654,2025-01-01,2025-04-01,True,True,True,True,True,True,False,True,False
+CUST-20014,38,1987-10-10,190.0,chrono_error1@test.com,9112233445,2025-06-01,2025-05-01,True,True,True,True,True,True,True,False,False
+CUST-20015,45,1980-01-20,250.0,chrono_error2@test.com,9223344556,2025-09-15,2025-01-15,True,True,True,True,True,True,True,False,False
