@@ -1,11 +1,11 @@
 import os
 import sys
-import pandas as pd
-import numpy as np
-import matplotlib
+import pandas as pd  # type: ignore # pyrefly: ignore [missing-import]
+import numpy as np  # type: ignore # pyrefly: ignore [missing-import]
+import matplotlib  # type: ignore # pyrefly: ignore [missing-import]
 matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import seaborn as sns
+import matplotlib.pyplot as plt  # type: ignore # pyrefly: ignore [missing-import]
+import seaborn as sns  # type: ignore # pyrefly: ignore [missing-import]
 
 # Ensure UTF-8 output handling on Windows
 if hasattr(sys.stdout, 'reconfigure'):
