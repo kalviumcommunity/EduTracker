@@ -1,0 +1,6 @@
+drop_point,users_lost,drop_rate,revenue_impact_num,revenue_impact,priority
+Sign Up → Email Entered,2000,20.0%,200000.0,"$200,000",HIGH
+Email Entered → Password Created,2000,25.0%,200000.0,"$200,000",HIGH
+Payment Added → First Purchase,2000,50.0%,200000.0,"$200,000",CRITICAL
+Password Created → Email Verified,1000,16.7%,100000.0,"$100,000",MEDIUM
+Email Verified → Payment Added,1000,20.0%,100000.0,"$100,000",MEDIUM
