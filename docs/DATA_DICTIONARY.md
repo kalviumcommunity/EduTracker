@@ -2,8 +2,8 @@
 
 ## Dataset Overview
 This dataset contains customer transaction records updated daily from the CRM system.
-- **Last Updated**: 2025-05-21
-- **Maintained By**: Data Engineering Team
+Last Updated: 2025-05-21
+Maintained By: Data Engineering Team
 
 ---
 
@@ -28,11 +28,11 @@ This dataset contains customer transaction records updated daily from the CRM sy
 
 ### purchase_date
 - **Type**: Datetime
-- **Business Meaning**: Date and timestamp when sale transaction occurred
-- **Example**: 2025-01-15 14:30:00
-- **Null Handling**: Never null
-- **Related KPI**: Sales velocity, daily transaction rate
-- **Updates**: Set automatically on transaction creation
+- **Business Meaning**: When sale was completed
+- **Example**: 2025-01-15
+- **Null Handling**: Never null (UTC timezone)
+- **Related KPI**: Sales velocity, revenue velocity
+- **Updates**: Recorded at timestamp of transaction
 
 ### cust_segment
 - **Type**: String
@@ -44,41 +44,46 @@ This dataset contains customer transaction records updated daily from the CRM sy
 - **Updates**: Monthly from CRM classification
 
 ### flag_churn
-- **Type**: Integer
-- **Business Meaning**: Binary indicator of customer churn within 90 days
+- **Type**: Integer (0/1)
+- **Business Meaning**: Whether customer left within 90 days following transaction
 - **Example**: 0
-- **Valid Values**: 0 (Active), 1 (Churned)
-- **Null Handling**: Default to 0
-- **Related KPI**: Churn rate, retention modeling
-- **Updates**: Evaluated quarterly
+- **Null Handling**: Default to 0 if null, verify against CRM
+- **Related KPI**: Churn rate prediction, retention modeling
+- **Updates**: Evaluated 90 days post-transaction
 
 ---
 
 ## Column to KPI Mapping
 
 ### Monthly Revenue
-- **Formula**: `SUM(trnx_amt)`
-- **Related Columns**: `trnx_amt`, `purchase_date`
+- **Formula**: SUM(trnx_amt)
+- **Related Columns**: trnx_amt, purchase_date
 - **Why It Matters**: Tracks total company revenue
 - **Update Frequency**: Daily
 
 ### Sales Velocity  
-- **Formula**: `COUNT(transactions) / days`
-- **Related Columns**: `purchase_date`
+- **Formula**: COUNT(transactions) / days
+- **Related Columns**: purchase_date
 - **Why It Matters**: Measures sales activity rate and momentum
 - **Update Frequency**: Weekly
 
 ### Segment Revenue
-- **Formula**: `SUM(trnx_amt)` grouped by `cust_segment`
-- **Related Columns**: `trnx_amt`, `cust_segment`
+- **Formula**: SUM(trnx_amt) grouped by cust_segment
+- **Related Columns**: trnx_amt, cust_segment
 - **Why It Matters**: Identifies most profitable market segments
 - **Update Frequency**: Monthly
 
 ### Churn Rate
-- **Formula**: `SUM(flag_churn) / total_customers`
-- **Related Columns**: `flag_churn`, `customer_id`
+- **Formula**: SUM(flag_churn) / total_customers
+- **Related Columns**: flag_churn, customer_id
 - **Why It Matters**: Critical retention metric
 - **Update Frequency**: Quarterly
+
+### Customer Lifetime Value (CLV)
+- **Formula**: SUM(trnx_amt) per customer_id over active lifespan
+- **Related Columns**: customer_id, trnx_amt, purchase_date, flag_churn
+- **Why It Matters**: Determines acquisition cost ceilings and customer value segmentation
+- **Update Frequency**: Monthly
 
 ---
 
@@ -88,14 +93,14 @@ This dataset contains customer transaction records updated daily from the CRM sy
 - **Original Ambiguity**: Does it mean "currently churned" or "will churn in future"?
 - **Resolved Meaning**: Binary indicator of whether customer churned in 90 days following this transaction
 - **Business Interpretation**: Historical churn flag used for training predictive retention models
-- **Proposed Rename**: `has_churned_90d`
+- **Proposed Rename**: has_churned_90d
 - **Risk If Misunderstood**: Models trained on wrong definition produce unreliable predictions
 
-### Column: segment
+### Column: cust_segment (or segment)
 - **Original Ambiguity**: Is this market segment, customer segment, product segment, or geographic region?
 - **Resolved Meaning**: Customer market segment (B2B, B2C, SMB) - determines go-to-market strategy
 - **Business Interpretation**: Informs pricing strategy and sales approach
-- **Proposed Rename**: `market_segment`
+- **Proposed Rename**: market_segment
 - **Risk If Misunderstood**: Revenue analysis by wrong dimension produces misleading segment performance
 
 ---
@@ -103,19 +108,19 @@ This dataset contains customer transaction records updated daily from the CRM sy
 ## Column Relationships
 
 ### Revenue per Customer
-- **Definition**: `SUM(trnx_amt)` grouped by `customer_id`
+- **Definition**: SUM(trnx_amt) grouped by customer_id
 - **How It Matters**: Identifies high-value customers for retention focus and upsell opportunities
 - **Example**: "Top 10% of customers generate 50% of revenue"
-- **Related Columns**: `customer_id`, `trnx_amt`, `cust_segment`
+- **Related Columns**: customer_id, trnx_amt, cust_segment
 
 ### Churn by Segment  
-- **Definition**: `SUM(flag_churn) / SUM(all customers)` grouped by `cust_segment`
+- **Definition**: SUM(flag_churn) / SUM(all customers) grouped by cust_segment
 - **How It Matters**: Identifies which segments have highest churn risk requiring intervention
 - **Example**: "SMB segment has 25% churn vs 10% for B2B"
-- **Related Columns**: `flag_churn`, `cust_segment`, `customer_id`
+- **Related Columns**: flag_churn, cust_segment, customer_id
 
 ### Revenue Velocity
-- **Definition**: Rolling sum of `trnx_amt` over 30-day windows
+- **Definition**: Rolling sum of trnx_amt over 30-day windows
 - **How It Matters**: Tracks sales momentum and growth rate trends
 - **Example**: "Monthly revenue velocity trending up 15% quarter-over-quarter"
-- **Related Columns**: `trnx_amt`, `purchase_date`
+- **Related Columns**: trnx_amt, purchase_date
