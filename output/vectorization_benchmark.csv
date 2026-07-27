@@ -1,0 +1,4 @@
+operation,rows,loop_time_sec,numpy_time_sec,speedup_factor
+Scalar Multiplication (* 1.1),150000,0.015922,0.000555,28.7
+Min-Max Normalization,150000,0.0319,0.00124,25.7
+Z-Score Standardization,150000,0.032756,0.002382,13.8
