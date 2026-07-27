@@ -1,0 +1,2 @@
+logged_at,anomaly_date,metric,actual_value,expected_range,z_score,severity,status
+2026-07-27 15:27:09,2026-07-09,daily_revenue,47800.0,"$-2,916 – $25,154",5.227,CRITICAL,OPEN
