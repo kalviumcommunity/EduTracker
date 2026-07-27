@@ -1,0 +1,10 @@
+customer_name,city,segment,product_code
+john,São Paulo,B2B,PROD100
+john,München,B2B,prod200
+john,Zürich,B2B,PROD300
+alice,New York!,SMB,PROD100
+alice,London#,SMB,prod200
+alice,Paris,SMB,PROD300
+bob,São Paulo,Enterprise,PROD100
+bob,München,Enterprise,prod200
+bob,Zürich,Enterprise,PROD300
