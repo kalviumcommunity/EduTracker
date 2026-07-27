@@ -1,0 +1,24 @@
+
+===================================================================================
+KPI HIERARCHICAL DECOMPOSITION: Total Monthly Revenue
+===================================================================================
+
+LEVEL 1 (Top-Level Total Revenue):
+  Total Revenue: $747,711.11
+
+LEVEL 2 (Segment Breakdown):
+  - Enterprise : $322,433.02 (43.1%)
+  - SMB        : $275,117.57 (36.8%)
+  - Startup    : $150,160.52 (20.1%)
+  Check Sum: $747,711.11 (Matches Level 1 exactly)
+
+LEVEL 3 (Product Breakdown by Customer Segment):
+product         Basic Plan Enterprise Plan     Pro Plan
+customer_type                                          
+Enterprise     $157,938.67      $43,034.12  $121,460.23
+SMB            $131,698.80      $44,669.95   $98,748.82
+Startup         $74,182.20      $22,859.24   $53,119.08
+
+Mathematical Consistency Verification:
+  Sum of Level 3 Matrix: $747,711.11 == Level 1 ($747,711.11)
+===================================================================================
