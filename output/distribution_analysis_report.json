@@ -1,0 +1,12 @@
+{
+  "mean_revenue": 1200.0,
+  "median_revenue": 448.21,
+  "skewness": 3.49,
+  "kurtosis": 10.94,
+  "max_revenue": 14428.44,
+  "p99_revenue": 13220.35,
+  "p75_revenue": 632.26,
+  "p25_revenue": 307.18,
+  "interpretation": "Highly right-skewed distribution where enterprise outliers pull the average up to $1,200 while median customer spend remains $450.",
+  "business_action": "Implement bifurcated go-to-market strategy: automated self-service product-led growth (PLG) for small/SMB base (<P75), and dedicated White-Glove Account Executives for high-value enterprise accounts (>P75)."
+}
