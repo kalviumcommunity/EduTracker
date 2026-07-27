@@ -1,0 +1,4 @@
+customer_type,Avg LTV ($),LTV Rank,Churn Rate (%),Churn Rank,Avg Retention (Days),Retention Rank,Avg Support Tickets,Ticket Rank,Sample Count
+Enterprise,"$150,685.10",1,1.0%,1,1241,1,1.21,1,100
+SMB,"$8,004.72",2,12.0%,3,448,2,5.71,3,800
+Startup,"$2,003.30",3,8.0%,2,300,3,3.39,2,1100
