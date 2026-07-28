@@ -1,4 +1,5 @@
 ﻿import streamlit as st
+import pandas as pd
 
 st.set_page_config(page_title="Analytics Dashboard", layout="wide")
 
@@ -66,7 +67,6 @@ elif page == "Data Explorer":
     if uploaded_file is not None:
         try:
             if uploaded_file.name.lower().endswith(".csv"):
-                df = st.session_state.get("uploaded_df") if "uploaded_df" in st.session_state else None
                 df = pd.read_csv(uploaded_file)
             elif uploaded_file.name.lower().endswith(".json"):
                 df = pd.read_json(uploaded_file)
@@ -93,47 +93,125 @@ elif page == "Data Explorer":
         st.info("Upload a CSV or JSON file to begin.")
 
     if df is not None:
-        st.divider()
-        st.header("Dataset Preview")
+        st.sidebar.header("Filters")
 
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.metric("Rows", f"{len(df):,}")
-        with col2:
-            st.metric("Columns", str(len(df.columns)))
-        with col3:
-            null_pct = (df.isnull().sum().sum() / (df.shape[0] * df.shape[1]) * 100) if df.size else 0.0
-            st.metric("Null %", f"{null_pct:.1f}%")
+        if {"date", "segment", "revenue"}.issubset(df.columns):
+            df = df.copy()
+            if not pd.api.types.is_datetime64_any_dtype(df["date"]):
+                df["date"] = pd.to_datetime(df["date"], errors="coerce")
 
-        st.subheader("First 10 Rows")
-        st.dataframe(df.head(10), use_container_width=True)
+            df = df.dropna(subset=["date"])
+            min_date = df["date"].min().date()
+            max_date = df["date"].max().date()
+            all_segments = sorted(df["segment"].dropna().unique().tolist())
+            revenue_min = int(df["revenue"].min())
+            revenue_max = int(df["revenue"].max())
 
-        st.subheader("Column Summary")
-        summary = pd.DataFrame({
-            "Column": df.columns,
-            "Type": df.dtypes.astype(str).values,
-            "Non-Null": df.notnull().sum().values,
-            "Null Count": df.isnull().sum().values,
-            "Null %": (df.isnull().sum() / len(df) * 100).round(1).values,
-        })
-        st.dataframe(summary, use_container_width=True)
+            date_range = st.sidebar.date_input(
+                "Date Range",
+                value=(min_date, max_date),
+                min_value=min_date,
+                max_value=max_date,
+            )
 
-        st.divider()
-        st.header("Descriptive Statistics")
-        numeric_df = df.select_dtypes(include="number")
-        if not numeric_df.empty:
-            st.dataframe(numeric_df.describe(), use_container_width=True)
+            selected_segments = st.sidebar.multiselect(
+                "Segments",
+                options=all_segments,
+                default=all_segments,
+            )
+
+            min_rev, max_rev = st.sidebar.slider(
+                "Revenue Range",
+                min_value=revenue_min,
+                max_value=revenue_max,
+                value=(revenue_min, revenue_max),
+            )
+
+            if st.sidebar.button("Reset Filters"):
+                st.experimental_rerun()
+
+            if isinstance(date_range, tuple) and len(date_range) == 2:
+                start_date, end_date = date_range
+            else:
+                start_date = end_date = date_range
+
+            filtered_df = df[
+                (df["date"] >= pd.Timestamp(start_date))
+                & (df["date"] <= pd.Timestamp(end_date))
+                & (df["segment"].isin(selected_segments))
+                & (df["revenue"] >= min_rev)
+                & (df["revenue"] <= max_rev)
+            ]
+
+            if len(filtered_df) == 0:
+                st.warning(
+                    "No data matches the current filters. Try broadening your selection."
+                )
+                st.stop()
+
+            st.divider()
+            st.header("Filtered Dataset Preview")
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.metric("Filtered Rows", f"{len(filtered_df):,}")
+            with col2:
+                st.metric("Original Rows", f"{len(df):,}")
+            with col3:
+                st.metric(
+                    "Selected Segments",
+                    str(len(selected_segments)) if selected_segments else "0",
+                )
+
+            st.write(f"Showing {len(filtered_df):,} of {len(df):,} records")
+            st.dataframe(filtered_df.head(20), use_container_width=True)
+
+            st.divider()
+            st.header("Filtered Metrics")
+            numeric_df = filtered_df.select_dtypes(include="number")
+            if not numeric_df.empty:
+                st.dataframe(numeric_df.describe(), use_container_width=True)
+            else:
+                st.info("No numeric columns found in the filtered dataset.")
+
+            st.divider()
+            st.header("Filtered Chart")
+            if "revenue" in filtered_df.columns and "date" in filtered_df.columns:
+                revenue_by_date = (
+                    filtered_df.groupby(filtered_df["date"].dt.to_period("D"))["revenue"].sum().reset_index()
+                )
+                revenue_by_date["date"] = revenue_by_date["date"].dt.to_timestamp()
+                st.line_chart(revenue_by_date.rename(columns={"date": "index"}).set_index("index"))
+            else:
+                st.info("Upload a dataset with date and revenue for charts.")
+
+            st.divider()
+            st.subheader("Column Summary")
+            summary = pd.DataFrame({
+                "Column": filtered_df.columns,
+                "Type": filtered_df.dtypes.astype(str).values,
+                "Non-Null": filtered_df.notnull().sum().values,
+                "Null Count": filtered_df.isnull().sum().values,
+                "Null %": (filtered_df.isnull().sum() / len(filtered_df) * 100).round(1).values,
+            })
+            st.dataframe(summary, use_container_width=True)
+
         else:
-            st.info("No numeric columns found for descriptive statistics.")
+            st.info(
+                "Upload a dataset with at least 'date', 'segment', and 'revenue' columns to enable filters."
+            )
+            st.divider()
+            st.header("Dataset Preview")
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.metric("Rows", f"{len(df):,}")
+            with col2:
+                st.metric("Columns", str(len(df.columns)))
+            with col3:
+                null_pct = (df.isnull().sum().sum() / (df.shape[0] * df.shape[1]) * 100) if df.size else 0.0
+                st.metric("Null %", f"{null_pct:.1f}%")
 
-        st.divider()
-        st.header("Quick Exploration")
-        numeric_cols = numeric_df.columns.tolist()
-        if numeric_cols:
-            selected_col = st.selectbox("Select a column to visualise", numeric_cols)
-            st.bar_chart(df[selected_col].value_counts().head(20))
-        else:
-            st.info("Upload a dataset with numeric columns to explore charts.")
+            st.subheader("First 10 Rows")
+            st.dataframe(df.head(10), use_container_width=True)
 
     st.divider()
     with st.expander("Additional details"):
