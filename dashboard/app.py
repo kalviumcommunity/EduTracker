@@ -56,18 +56,87 @@ elif page == "Trends":
 
 elif page == "Data Explorer":
     st.title("Data Explorer")
-    st.header("Filter and Inspect")
-    st.subheader("Customer and Order Data")
+    st.header("Upload and Inspect Data")
 
-    left, right = st.columns([2, 1])
-    with left:
-        st.write("Filters will appear here so users can narrow the dataset by segment, date, or status.")
-    with right:
-        st.write("Download and export controls will appear here.")
+    uploaded_file = st.file_uploader(
+        "Upload your dataset", type=["csv", "json"], help="Supported formats: CSV, JSON"
+    )
+
+    df = None
+    if uploaded_file is not None:
+        try:
+            if uploaded_file.name.lower().endswith(".csv"):
+                df = st.session_state.get("uploaded_df") if "uploaded_df" in st.session_state else None
+                df = pd.read_csv(uploaded_file)
+            elif uploaded_file.name.lower().endswith(".json"):
+                df = pd.read_json(uploaded_file)
+            else:
+                st.error("Unsupported file type. Please upload CSV or JSON.")
+                st.stop()
+
+            if df is None or len(df) == 0:
+                st.warning("Uploaded file is empty.")
+                st.stop()
+
+            st.session_state["uploaded_df"] = df
+            st.success(
+                f"Loaded: {uploaded_file.name} ({len(df):,} rows, {len(df.columns):,} columns)"
+            )
+        except Exception:
+            st.error("Could not read this file. Check the format and try again.")
+            st.stop()
+
+    elif "uploaded_df" in st.session_state:
+        df = st.session_state["uploaded_df"]
+
+    else:
+        st.info("Upload a CSV or JSON file to begin.")
+
+    if df is not None:
+        st.divider()
+        st.header("Dataset Preview")
+
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Rows", f"{len(df):,}")
+        with col2:
+            st.metric("Columns", str(len(df.columns)))
+        with col3:
+            null_pct = (df.isnull().sum().sum() / (df.shape[0] * df.shape[1]) * 100) if df.size else 0.0
+            st.metric("Null %", f"{null_pct:.1f}%")
+
+        st.subheader("First 10 Rows")
+        st.dataframe(df.head(10), use_container_width=True)
+
+        st.subheader("Column Summary")
+        summary = pd.DataFrame({
+            "Column": df.columns,
+            "Type": df.dtypes.astype(str).values,
+            "Non-Null": df.notnull().sum().values,
+            "Null Count": df.isnull().sum().values,
+            "Null %": (df.isnull().sum() / len(df) * 100).round(1).values,
+        })
+        st.dataframe(summary, use_container_width=True)
+
+        st.divider()
+        st.header("Descriptive Statistics")
+        numeric_df = df.select_dtypes(include="number")
+        if not numeric_df.empty:
+            st.dataframe(numeric_df.describe(), use_container_width=True)
+        else:
+            st.info("No numeric columns found for descriptive statistics.")
+
+        st.divider()
+        st.header("Quick Exploration")
+        numeric_cols = numeric_df.columns.tolist()
+        if numeric_cols:
+            selected_col = st.selectbox("Select a column to visualise", numeric_cols)
+            st.bar_chart(df[selected_col].value_counts().head(20))
+        else:
+            st.info("Upload a dataset with numeric columns to explore charts.")
 
     st.divider()
     with st.expander("Additional details"):
         st.write(
-            "This section will allow team members to explore raw data, export CSV files, and validate assumptions."
+            "This section allows team members to inspect uploaded data, review quality metrics, and start downstream analysis without manual preprocessing."
         )
-    st.write("Data table placeholder for exploratory analysis.")
