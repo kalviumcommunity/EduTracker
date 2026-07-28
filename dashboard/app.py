@@ -1,6 +1,25 @@
 ﻿import streamlit as st
 import pandas as pd
 
+# Initialise session state keys once so they survive reruns.
+# These keys store user workflow progress, filter choices, and cached analysis.
+if "workflow_step" not in st.session_state:
+    st.session_state["workflow_step"] = 1
+if "workflow_selected_segment" not in st.session_state:
+    st.session_state["workflow_selected_segment"] = "All"
+if "workflow_analysis_result" not in st.session_state:
+    st.session_state["workflow_analysis_result"] = None
+if "filter_date_start" not in st.session_state:
+    st.session_state["filter_date_start"] = None
+if "filter_date_end" not in st.session_state:
+    st.session_state["filter_date_end"] = None
+if "filter_selected_segments" not in st.session_state:
+    st.session_state["filter_selected_segments"] = None
+if "filter_revenue_min" not in st.session_state:
+    st.session_state["filter_revenue_min"] = None
+if "filter_revenue_max" not in st.session_state:
+    st.session_state["filter_revenue_max"] = None
+
 st.set_page_config(page_title="Analytics Dashboard", layout="wide")
 
 st.sidebar.title("Navigation")
@@ -107,9 +126,34 @@ elif page == "Data Explorer":
             revenue_min = int(df["revenue"].min())
             revenue_max = int(df["revenue"].max())
 
+            # Use saved filter state if available, otherwise default to full range.
+            default_start = (
+                st.session_state["filter_date_start"]
+                if st.session_state["filter_date_start"] is not None
+                else min_date
+            )
+            default_end = (
+                st.session_state["filter_date_end"]
+                if st.session_state["filter_date_end"] is not None
+                else max_date
+            )
+            default_segments = (
+                [seg for seg in st.session_state["filter_selected_segments"] if seg in all_segments]
+                if st.session_state["filter_selected_segments"] is not None
+                else all_segments
+            )
+            default_revenue = (
+                st.session_state["filter_revenue_min"]
+                if st.session_state["filter_revenue_min"] is not None
+                else revenue_min,
+                st.session_state["filter_revenue_max"]
+                if st.session_state["filter_revenue_max"] is not None
+                else revenue_max,
+            )
+
             date_range = st.sidebar.date_input(
                 "Date Range",
-                value=(min_date, max_date),
+                value=(default_start, default_end),
                 min_value=min_date,
                 max_value=max_date,
             )
@@ -117,23 +161,48 @@ elif page == "Data Explorer":
             selected_segments = st.sidebar.multiselect(
                 "Segments",
                 options=all_segments,
-                default=all_segments,
+                default=default_segments,
             )
 
             min_rev, max_rev = st.sidebar.slider(
                 "Revenue Range",
                 min_value=revenue_min,
                 max_value=revenue_max,
-                value=(revenue_min, revenue_max),
+                value=default_revenue,
             )
 
             if st.sidebar.button("Reset Filters"):
+                st.session_state["filter_date_start"] = None
+                st.session_state["filter_date_end"] = None
+                st.session_state["filter_selected_segments"] = None
+                st.session_state["filter_revenue_min"] = None
+                st.session_state["filter_revenue_max"] = None
+                st.experimental_rerun()
+
+            if st.sidebar.button("Reset Workflow"):
+                for key in [
+                    "workflow_selected_segment",
+                    "workflow_step",
+                    "workflow_analysis_result",
+                ]:
+                    if key in st.session_state:
+                        del st.session_state[key]
+                st.session_state["workflow_step"] = 1
+                st.session_state["workflow_selected_segment"] = "All"
+                st.session_state["workflow_analysis_result"] = None
                 st.experimental_rerun()
 
             if isinstance(date_range, tuple) and len(date_range) == 2:
                 start_date, end_date = date_range
             else:
                 start_date = end_date = date_range
+
+            # Persist chosen filter values so they survive unrelated reruns.
+            st.session_state["filter_date_start"] = start_date
+            st.session_state["filter_date_end"] = end_date
+            st.session_state["filter_selected_segments"] = selected_segments
+            st.session_state["filter_revenue_min"] = min_rev
+            st.session_state["filter_revenue_max"] = max_rev
 
             filtered_df = df[
                 (df["date"] >= pd.Timestamp(start_date))
@@ -148,6 +217,36 @@ elif page == "Data Explorer":
                     "No data matches the current filters. Try broadening your selection."
                 )
                 st.stop()
+
+            st.divider()
+            st.header("Workflow Step 1: Select Segment")
+            workflow_options = ["All"] + all_segments
+            workflow_segment = st.selectbox(
+                "Choose a workflow segment",
+                workflow_options,
+                index=workflow_options.index(st.session_state["workflow_selected_segment"])
+                if st.session_state["workflow_selected_segment"] in workflow_options
+                else 0,
+            )
+            if st.button("Confirm Segment"):
+                st.session_state["workflow_selected_segment"] = workflow_segment
+                st.session_state["workflow_step"] = 2
+                st.session_state["workflow_analysis_result"] = None
+                st.experimental_rerun()
+
+            if st.session_state["workflow_step"] >= 2:
+                st.divider()
+                st.header("Workflow Step 2: Analysis")
+                chosen = st.session_state["workflow_selected_segment"]
+                st.write(f"Analysing segment: **{chosen}**")
+                if st.session_state["workflow_analysis_result"] is None:
+                    segment_df = filtered_df if chosen == "All" else filtered_df[filtered_df["segment"] == chosen]
+                    revenue_sum = segment_df["revenue"].sum()
+                    row_count = len(segment_df)
+                    st.session_state["workflow_analysis_result"] = (
+                        f"{chosen}: {row_count:,} rows, ${revenue_sum:,.0f} total revenue"
+                    )
+                st.info(st.session_state["workflow_analysis_result"])
 
             st.divider()
             st.header("Filtered Dataset Preview")
