@@ -266,3 +266,26 @@ st.download_button(
     file_name='filtered_orders.csv',
     mime='text/csv',
 )
+
+# Export support
+from scripts.export_analysis import export_analysis
+
+if st.sidebar.button('📥 Export Full Analysis'):
+    summary_text = (
+        '## Churn and Revenue Analysis\n'
+        'This export includes clean data, key findings, and interactive charts for stakeholder review. '
+        'Use the HTML report to explore trends and the PDF summary for leadership communication.'
+    )
+    chart_dict = {
+        'Revenue Trend': fig1,
+        'Customer Growth vs Churn': fig2,
+        'Relative Engagement Trend': fig3,
+    }
+    report_dir = export_analysis(
+        filtered_orders,
+        summary_text,
+        chart_dict,
+        str(ROOT_DIR / 'output'),
+    )
+    st.success(f'✓ Export complete: {report_dir}')
+    st.markdown(f'**Download folder:** `{report_dir}`')
