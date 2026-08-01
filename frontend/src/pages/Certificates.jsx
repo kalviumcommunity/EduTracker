@@ -18,16 +18,7 @@ const certificates = [
   {
     id: 2,
     title: 'Figm UI/UX Design Advanced...',
-{
-  id: 2,
-  title: 'Figm UI/UX Design Advanced...',
-  provider: '',
-  providerIcon: '✏️',
-  date: '5th July',
-  category: 'UI/UX Design',
-  bg: 'linear-gradient(135deg, #F5F3FF, #EDE9FE)',
-  accent: '#7C3AED',
-},
+    provider: '',
     providerIcon: '✏️',
     date: '5th July',
     category: 'UI/UX Design',

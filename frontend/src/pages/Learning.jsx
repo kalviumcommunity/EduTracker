@@ -131,11 +131,7 @@ export default function Learning({ navigate, currentPage }) {
           navigate={navigate}
           currentPage={currentPage}
           breadcrumb={[
-breadcrumb={[
-  { label: 'UI/UX', page: 'course-detail' },
-  { label: 'Module 1', page: 'course-detail' },
-  { label: 'Introduction to UI/UX Design' },
-]}
+            { label: 'UI/UX', page: 'course-detail' },
             { label: 'Module 1', page: 'course-detail' },
             { label: 'Introduction to UI/UX Design' },
           ]}
