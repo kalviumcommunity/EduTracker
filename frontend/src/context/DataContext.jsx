@@ -98,7 +98,6 @@ const INITIAL_USERS = [
 ]
 
 const INITIAL_SUBMISSIONS = [
-const INITIAL_SUBMISSIONS = [
   {
     id: 'sub1',
     studentName: 'John Doe',
@@ -129,9 +128,6 @@ const INITIAL_SUBMISSIONS = [
     score: '-',
     feedback: '',
   },
-]
-  { id: 'sub2', studentName: 'Priya Sharma', assignmentTitle: 'Brand Strategy Deck', course: 'Brand Identity', submittedAt: 'Jul 21, 2026', status: 'Pending Review', score: '-', feedback: '' },
-  { id: 'sub3', studentName: 'James Okafor', assignmentTitle: 'Responsive Component Library', course: 'Low Code Web', submittedAt: 'Jul 21, 2026', status: 'Pending Review', score: '-', feedback: '' },
 ]
 
 export function DataProvider({ children }) {
